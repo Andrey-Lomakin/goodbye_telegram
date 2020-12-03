@@ -1,0 +1,19 @@
+{
+  "name": "telegram_rm",
+  "version": "0.0.1",
+  "description": "removes old history from chat",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Andrey-Lomakin/telegram_removes_history.git"
+  },
+  "author": "",
+  "license": "SEE LICENSE IN LICENSE",
+  "bugs": {
+    "url": "https://github.com/Andrey-Lomakin/telegram_removes_history/issues"
+  },
+  "homepage": "https://github.com/Andrey-Lomakin/telegram_removes_history#readme"
+}
