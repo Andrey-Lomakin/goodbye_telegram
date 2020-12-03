@@ -1,4 +1,4 @@
-# Delete message history from Telegram chats
+# Delete message history from Telegram chats (text messages only)
 
 *Attention: this script will delete your messages and make them inaccessible to other users, but not to the telegram server.*
 
