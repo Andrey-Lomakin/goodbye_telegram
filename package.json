@@ -15,5 +15,13 @@
   "bugs": {
     "url": "https://github.com/Andrey-Lomakin/telegram_removes_history/issues"
   },
-  "homepage": "https://github.com/Andrey-Lomakin/telegram_removes_history#readme"
+  "homepage": "https://github.com/Andrey-Lomakin/telegram_removes_history#readme",
+  "dependencies": {
+    "tglib": "^3.0.5"
+  },
+  "devDependencies": {
+    "eslint": "^7.14.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.22.1"
+  }
 }
