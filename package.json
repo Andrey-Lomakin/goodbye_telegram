@@ -1,5 +1,5 @@
 {
-  "name": "telegram_rm",
+  "name": "goodbye_telegram",
   "version": "0.0.1",
   "description": "removes old history from chat",
   "main": "index.js",
@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "@mtproto/core": "5.3.0",
-    "dotenv": "^8.2.0"
+    "dotenv": "^8.2.0",
+    "prompt-sync": "^4.2.0"
   }
 }
