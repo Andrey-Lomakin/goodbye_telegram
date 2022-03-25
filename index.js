@@ -7,8 +7,8 @@ const { getUserNumber } = require('./src/helpers');
 
 async function main() {
   try {
-    const user = await getUser();
-    if (!user) await auth();
+    const fullUser = await getUser();
+    if (!fullUser) await auth();
 
     // https://core.telegram.org/method/messages.getAllChats
     const { chats } = await api.call('messages.getAllChats', { except_ids: 0 });
@@ -22,7 +22,10 @@ async function main() {
     const targetRoom = allRooms[selectIndexChat];
 
     const allMessages = await getAllMessages(targetRoom);
-    const myMessages = allMessages.filter((msg) => msg.user === user.user.id && !msg.media);
+    const myMessages = allMessages.filter(
+      (msg) => (msg && msg.user && fullUser && fullUser.user)
+        && msg.user === fullUser.user.id && !msg.media,
+    );
     console.table(myMessages, ['id', 'text', 'textDate']);
 
     const offsetMsg = getUserNumber('how many messages to leave : ');
