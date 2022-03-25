@@ -64,7 +64,10 @@ async function deleteMessages(room, ids) {
     });
   }
 
-  console.log(`Complete, deleted ${resultDelete.pts_count} messages`);
+  console.log(`Complete, deleted ${resultDelete.pts_count} messages / ${ids.length}`);
+  if (ids.length > resultDelete.pts_count) {
+    deleteMessages(room, ids.slice(resultDelete.pts_count));
+  }
 }
 
 module.exports = { getAllMessages, deleteMessages };
