@@ -42,6 +42,10 @@ async function getAllMessages(targetRoom, prevMessage = [], add_offset = 0) {
     return [...prevMessage, ...myMessages];
   }
 
+  if (add_offset > 1000) {
+    return [...prevMessage, ...myMessages];
+  }
+
   return getAllMessages(targetRoom, [...prevMessage, ...myMessages], add_offset + OFFSET_MESSAGES);
 }
 
