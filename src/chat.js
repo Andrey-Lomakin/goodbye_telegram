@@ -5,7 +5,7 @@ const api = require('./api');
 const OFFSET_MESSAGES = 100; // 100 max value
 
 async function getAllMessages(targetRoom, prevMessage = [], add_offset = 0) {
-  await sleep(1200); // bans on frequent requests
+  await sleep(1100); // bans on frequent requests
   console.log(`get ${add_offset}-${add_offset + OFFSET_MESSAGES} messages`);
   let myMessages = [];
 
@@ -42,10 +42,6 @@ async function getAllMessages(targetRoom, prevMessage = [], add_offset = 0) {
     return [...prevMessage, ...myMessages];
   }
 
-  if (add_offset > 1000) {
-    return [...prevMessage, ...myMessages];
-  }
-
   return getAllMessages(targetRoom, [...prevMessage, ...myMessages], add_offset + OFFSET_MESSAGES);
 }
 
@@ -69,8 +65,8 @@ async function deleteMessages(room, ids) {
   }
 
   console.log(`Complete, deleted ${resultDelete.pts_count} messages / ${ids.length}`);
-  if (ids.length > resultDelete.pts_count) {
-    deleteMessages(room, ids.slice(resultDelete.pts_count));
+  if (ids.length > Number(resultDelete.pts_count)) {
+    await deleteMessages(room, ids.slice(resultDelete.pts_count));
   }
 }
 
