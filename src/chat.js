@@ -4,10 +4,12 @@ const api = require('./api');
 
 const OFFSET_MESSAGES = 100; // 100 max value
 
-async function getAllMessages(targetRoom, prevMessage = [], add_offset = 0) {
+async function getAllMessages({
+  targetRoom, prevMessage = [], add_offset = 0, offsetLimit = 0,
+}) {
   await sleep(1100); // bans on frequent requests
   console.log(`get ${add_offset}-${add_offset + OFFSET_MESSAGES} messages`);
-  let myMessages = [];
+  let currentMessages = [];
 
   let peer;
 
@@ -31,18 +33,27 @@ async function getAllMessages(targetRoom, prevMessage = [], add_offset = 0) {
     add_offset,
   });
 
-  myMessages = messages.map((msg) => ({
+  currentMessages = messages.map((msg) => ({
     text: msg.message ? msg.message.slice(0, 60) : msg.message,
     user: msg.from_id && msg.from_id.user_id,
     textDate: new Date(msg.date * 1000).toISOString().slice(0, -8),
     ...msg,
   }));
 
-  if (myMessages.length < OFFSET_MESSAGES) {
-    return [...prevMessage, ...myMessages];
+  if (currentMessages.length < OFFSET_MESSAGES) {
+    return [...prevMessage, ...currentMessages];
   }
 
-  return getAllMessages(targetRoom, [...prevMessage, ...myMessages], add_offset + OFFSET_MESSAGES);
+  if (offsetLimit && (add_offset > offsetLimit)) {
+    return [...prevMessage, ...currentMessages];
+  }
+
+  return getAllMessages({
+    targetRoom,
+    prevMessage: [...prevMessage, ...currentMessages],
+    add_offset: add_offset + OFFSET_MESSAGES,
+    offsetLimit,
+  });
 }
 
 async function deleteMessages(room, ids) {

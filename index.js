@@ -7,11 +7,17 @@ const { getUserNumber } = require('./src/helpers');
 
 async function main() {
   try {
-    const fullUser = await getUser();
-    if (!fullUser) await auth();
+    const user = (await getUser()).users[0];
+    if (!user) await auth();
 
-    // https://core.telegram.org/method/messages.getAllChats
-    const { chats } = await api.call('messages.getAllChats', { except_ids: 0 });
+    // https://core.telegram.org/method/messages.getDialogs
+    const { chats } = await api.call('messages.getDialogs', {
+      offset_id: 0,
+      limit: 100,
+      hash: 0,
+      exclude_pinned: false,
+      offset_peer: { _: 'inputPeerSelf' },
+    });
 
     const allRooms = chats
       .filter((ch) => (ch._ === 'chat' && !ch.deactivated) || ch.megagroup);
@@ -21,10 +27,12 @@ async function main() {
 
     const targetRoom = allRooms[selectIndexChat];
 
-    const allMessages = await getAllMessages(targetRoom);
+    const offsetLimit = getUserNumber('the maximum number of messages to request (0 max) : ');
+    const allMessages = await getAllMessages({ targetRoom, offsetLimit });
+
     const myMessages = allMessages.filter(
-      (msg) => (msg && msg.user && fullUser && fullUser.user)
-        && msg.user === fullUser.user.id && !msg.media,
+      (msg) => (msg && msg.user)
+        && msg.user === user.id && !msg.media,
     );
     console.table(myMessages, ['id', 'text', 'textDate']);
 

@@ -1,14 +1,19 @@
 // https://github.com/alik0211/mtproto-core/blob/master/docs/handling-common-errors.md
-const { MTProto } = require('@mtproto/core');
+const MTProto = require('@mtproto/core');
 const { sleep } = require('@mtproto/core/src/utils/common');
 const prompt = require('prompt-sync')();
+const path = require('path');
 
 const mtproto = new MTProto({
   api_id: process.env.API_ID || prompt('Enter API_ID: '),
   api_hash: process.env.API_HASH || prompt('Enter API_HASH: '),
+  storageOptions: {
+    path: path.resolve(__dirname, './data/1.json'),
+  },
 });
 
 const api = {
+  mtproto,
   call(method, params, options = {}) {
     return mtproto.call(method, params, options).catch(async (error) => {
       console.log(`${method} error:`, error);

@@ -1,6 +1,5 @@
 // https://github.com/alik0211/mtproto-core/blob/master/docs/authentication.md
 const prompt = require('prompt-sync')();
-const { getSRPParams } = require('@mtproto/core');
 
 const api = require('./api');
 
@@ -79,7 +78,7 @@ async function auth() {
 
     const password = process.env.USER_PASSWORD || prompt('Enter password: ');
 
-    const { A, M1 } = await getSRPParams({
+    const { A, M1 } = await api.mtproto.crypto.getSRPParams({
       g,
       p,
       salt1,
