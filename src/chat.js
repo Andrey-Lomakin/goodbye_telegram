@@ -44,7 +44,7 @@ async function getAllMessages({
     return [...prevMessage, ...currentMessages];
   }
 
-  if (offsetLimit && (add_offset > offsetLimit)) {
+  if (offsetLimit && (add_offset >= offsetLimit)) {
     return [...prevMessage, ...currentMessages];
   }
 

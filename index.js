@@ -7,7 +7,7 @@ const { getUserNumber } = require('./src/helpers');
 
 async function main() {
   try {
-    const user = (await getUser()).users[0];
+    const user = await getUser();
     if (!user) await auth();
 
     // https://core.telegram.org/method/messages.getDialogs
@@ -27,7 +27,7 @@ async function main() {
 
     const targetRoom = allRooms[selectIndexChat];
 
-    const offsetLimit = getUserNumber('the maximum number of messages to request (0 max) : ');
+    const offsetLimit = getUserNumber('the maximum number of messages to request (0=All) : ');
     const allMessages = await getAllMessages({ targetRoom, offsetLimit });
 
     const myMessages = allMessages.filter(

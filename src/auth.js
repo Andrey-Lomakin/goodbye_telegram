@@ -11,7 +11,7 @@ async function getUser() {
       },
     });
 
-    return user;
+    return user.users[0];
   } catch (error) {
     return null;
   }
