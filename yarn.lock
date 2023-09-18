@@ -52,10 +52,10 @@
   resolved "https://registry.yarnpkg.com/@humanwhocodes/object-schema/-/object-schema-1.2.1.tgz#b520529ec21d8e5945a1851dfd1c32e94e39ff45"
   integrity sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==
 
-"@mtproto/core@^6.2.0":
-  version "6.2.0"
-  resolved "https://registry.yarnpkg.com/@mtproto/core/-/core-6.2.0.tgz#0066ede068086f8022f6fad03865372c6452fa10"
-  integrity sha512-topZ4VaDTkTQDjXktiPVpmY9Eeb8utKKiCjLOgWcGKXoVIpyi9fbBQ0jLPykt0xZDZAmE6ANEmSHat8m6Lxp/g==
+"@mtproto/core@^6.3.0":
+  version "6.3.0"
+  resolved "https://registry.yarnpkg.com/@mtproto/core/-/core-6.3.0.tgz#87b2787fdb5bc0e95cd7b78a7265d0f8a7457266"
+  integrity sha512-uhHtyty53d/KdyJ/3ZcigMyMr3jO7S7Nuzt/6CSBfikX6Wv7i2a6Ru0xtiNdluw62cAyTJTbeGLivL32eZBpZQ==
   dependencies:
     aes-js "3.1.2"
     big-integer "1.6.51"
@@ -64,7 +64,7 @@
     events "3.3.0"
     leemon "6.2.0"
     lodash.debounce "4.0.8"
-    pako "2.0.4"
+    pako "2.1.0"
 
 "@types/json5@^0.0.29":
   version "0.0.29"
@@ -1131,10 +1131,10 @@ optionator@^0.9.1:
     type-check "^0.4.0"
     word-wrap "^1.2.3"
 
-pako@2.0.4:
-  version "2.0.4"
-  resolved "https://registry.yarnpkg.com/pako/-/pako-2.0.4.tgz#6cebc4bbb0b6c73b0d5b8d7e8476e2b2fbea576d"
-  integrity sha512-v8tweI900AUkZN6heMU/4Uy4cXRc2AYNRggVmTR+dEncawDJgCdLMximOVA2p4qO57WMynangsfGRb5WD6L1Bg==
+pako@2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/pako/-/pako-2.1.0.tgz#266cc37f98c7d883545d11335c00fbd4062c9a86"
+  integrity sha512-w+eufiZ1WuJYgPXbV/PO3NCMEc3xqylkKHzp8bxp1uW4qaSNQUkwmLLEc3kKsfz8lpV1F8Ht3U1Cm+9Srog2ug==
 
 parent-module@^1.0.0:
   version "1.0.1"
