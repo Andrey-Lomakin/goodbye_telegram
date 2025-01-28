@@ -1,13 +1,17 @@
 const { sleep } = require('@mtproto/core/src/utils/common');
 
-const api = require('./api');
+const { chatClient } = require('./api');
 
 const OFFSET_MESSAGES = 100; // 100 max value
+const DELAY = 1100; // 1 sec
 
 async function getAllMessages({
-  targetRoom, prevMessage = [], add_offset = 0, offsetLimit = 0,
+  targetRoom,
+  prevMessage = [],
+  add_offset = 0,
+  offsetLimit = 0,
 }) {
-  await sleep(1100); // bans on frequent requests
+  await sleep(DELAY); // bans on frequent requests
   console.log(`get ${add_offset}-${add_offset + OFFSET_MESSAGES} messages`);
   let currentMessages = [];
 
@@ -27,11 +31,11 @@ async function getAllMessages({
     };
   }
 
-  const { messages } = await api.call('messages.getHistory', {
+  const { messages } = await chatClient.getHistory(
     peer,
-    limit: OFFSET_MESSAGES,
+    OFFSET_MESSAGES,
     add_offset,
-  });
+  );
 
   currentMessages = messages.map((msg) => ({
     text: msg.message ? msg.message.slice(0, 60) : msg.message,
@@ -44,7 +48,7 @@ async function getAllMessages({
     return [...prevMessage, ...currentMessages];
   }
 
-  if (offsetLimit && (add_offset >= offsetLimit)) {
+  if (offsetLimit && add_offset >= offsetLimit) {
     return [...prevMessage, ...currentMessages];
   }
 
@@ -59,23 +63,15 @@ async function getAllMessages({
 async function deleteMessages(room, ids) {
   let resultDelete;
   if (room._ === 'channel') {
-    resultDelete = await api.call('channels.deleteMessages', {
-      channel: {
-        _: 'inputPeerChannel',
-        channel_id: room.id,
-        access_hash: room.access_hash,
-      },
-      id: ids,
-    });
+    resultDelete = await chatClient.deleteChannelMessages(room, ids);
   }
   if (room._ === 'chat') {
-    resultDelete = await api.call('messages.deleteMessages', {
-      revoke: true,
-      id: ids,
-    });
+    resultDelete = await chatClient.deleteChatMessages(ids);
   }
 
-  console.log(`Complete, deleted ${resultDelete.pts_count} messages / ${ids.length}`);
+  console.log(
+    `Complete, deleted ${resultDelete.pts_count} messages / ${ids.length}`,
+  );
   if (ids.length > Number(resultDelete.pts_count)) {
     await deleteMessages(room, ids.slice(resultDelete.pts_count));
   }
